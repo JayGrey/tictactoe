@@ -1,4 +1,7 @@
+package com.hexlet.tictactoe;
+
 public class Player{
+
     private String name;
     private int element;
     

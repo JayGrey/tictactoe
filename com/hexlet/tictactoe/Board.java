@@ -1,3 +1,5 @@
+package com.hexlet.tictactoe;
+
 public class Board {
 
     public static final int ELEMENT_EMPTY = 0;    // пустое поле
