@@ -39,15 +39,15 @@ public class Board {
 
     /**
      * Устанавливает значение крестик или нолик  для поля (x,y)
-     * x - номер поля по горизонтали (1 .. 3)
-     * y - номер поля по вертикали   (1 .. 3)
+     * x - номер поля по горизонтали (0 .. 2)
+     * y - номер поля по вертикали   (0 .. 2)
      * element - одна из возможных фигур (ELEMENT_X, ELEMENT_O)
      * <p/>
      * В случае удачного исполнения возвращает true, иначе false
      */
     public boolean setElement(int x, int y, int element) {
         // Проверяем диапазоны x и y:
-        if ((x < 1 || x > 3) || (y < 1 || y > 3)) {
+        if ((x < 0 || x > 2) || (y < 0 || y > 2)) {
             return false;
         }
 
@@ -57,11 +57,11 @@ public class Board {
         }
 
         // Проверяем поле в которое будем записывать фигуру. Оно должно быть пустым.
-        if (field[x - 1][y - 1] != ELEMENT_EMPTY) {
+        if (field[x][y] != ELEMENT_EMPTY) {
             return false;
         }
 
-        field[x - 1][y - 1] = element;
+        field[x][y] = element;
 
         return true;
     }
@@ -74,11 +74,11 @@ public class Board {
      * Возвращает значения ELEMENT_EMPTY ELEMENT_X или ELEMENT_O для поля (x, y). В случае ошибки -1.
      */
     public int getElement(int x, int y) {
-        if ((x < 1 || x > 3) || (y < 1 || y > 3)) {
+        if ((x < 0 || x > 2) || (y < 0 || y > 2)) {
             return -1;
         }
 
-        return field[x - 1][y - 1];
+        return field[x][y];
     }
 
     public Player getCurrentPlayer() {
@@ -135,7 +135,7 @@ public class Board {
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
-                if (getElement(i,j) == ELEMENT_EMPTY) {
+                if (getElement(i, j) == ELEMENT_EMPTY) {
                     return false;
                 }
             }
@@ -144,13 +144,13 @@ public class Board {
     }
 
     public void nextMove() {
-        int [] playerMove;
+        int[] playerMove;
         do {
             playerMove = currentPlayer.move();
         } while (!setElement(playerMove[0], playerMove[1], currentPlayer.getElement()));
 
         // Меняем местами игроков
-        currentPlayer= currentPlayer == players[0] ? players[1] : players[0];
+        currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
     }
 
 }
