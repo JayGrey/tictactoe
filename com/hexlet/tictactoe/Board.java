@@ -8,22 +8,10 @@ public class Board {
 
     private int[][] field;
 
-    private Player[] players;
-    private Player currentPlayer;
 
-    public Board(Player player1, Player player2) {
+    public Board() {
         field = new int[3][3];
         clearBoard();
-
-        if (player1 == null || player2 == null) {
-            System.out.println("Error");
-            return;
-        }
-
-        players = new Player[2];
-        players[0] = player1;
-        players[1] = player2;
-        currentPlayer = players[0];
     }
 
     /**
@@ -81,16 +69,12 @@ public class Board {
         return field[x][y];
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
 
     /**
      * Проверяем соблюдены ли условия выиграша для текущего пользователе,
      * если да возвращает true иначе false
      */
-    public boolean checkWinCondition() {
+    public boolean checkWinCondition(Player currentPlayer) {
 
         // проверяем строки
         for (int i = 0; i < field.length; i++) {
@@ -143,14 +127,5 @@ public class Board {
         return true;
     }
 
-    public void nextMove() {
-        int[] playerMove;
-        do {
-            playerMove = currentPlayer.move();
-        } while (!setElement(playerMove[0], playerMove[1], currentPlayer.getElement()));
-
-        // Меняем местами игроков
-        currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
-    }
 
 }
